@@ -12,9 +12,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.GamepadDriveTeleOp;
-import edu.wpi.first.wpilibj.AnalogGyro;
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * Add your docs here.
@@ -27,7 +28,7 @@ public class Drivetrain extends Subsystem {
   final TalonSRX frontRightDrive;
   final TalonSRX backLeftDrive;
   final VictorSPX backRightDrive;
-  final AnalogGyro gyro;
+  final AHRS navX;
   public final double spinSpeed;
 
   public Drivetrain()
@@ -40,9 +41,17 @@ public class Drivetrain extends Subsystem {
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);
   
-    gyro = new AnalogGyro(RobotMap.analogGyroPort);
+    navX = new AHRS();
 
     spinSpeed = 0.5;
+  }
+
+  @Override
+  public void periodic() {
+    // TODO Auto-generated method stub
+    super.periodic();
+
+    SmartDashboard.putNumber("navX_Angle", getAngle());
   }
 
 
@@ -62,13 +71,8 @@ public class Drivetrain extends Subsystem {
 
   }
 
-  public void resetGyro()
+  private double getAngle()
   {
-    gyro.calibrate();
-  }
-
-  public double getAngle()
-  {
-    return gyro.getAngle();
+    return navX.getAngle();
   }
 }
