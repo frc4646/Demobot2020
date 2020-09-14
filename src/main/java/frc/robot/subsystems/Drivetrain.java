@@ -17,10 +17,11 @@ import frc.robot.RobotMap;
 import frc.robot.commands.GamepadDriveTeleOp;
 import com.kauailabs.navx.frc.AHRS;
 
+
 /**
  * Add your docs here.
  */
-public class Drivetrain extends Subsystem {
+public class Drivetrain extends Subsystem{
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -28,8 +29,13 @@ public class Drivetrain extends Subsystem {
   final TalonSRX frontRightDrive;
   final TalonSRX backLeftDrive;
   final VictorSPX backRightDrive;
+
   final AHRS navX;
-  public final double spinSpeed;
+  
+  // The gain for a simple P loop
+  public double kP;
+
+  public double gyroError;
 
   public Drivetrain()
   {
@@ -38,12 +44,17 @@ public class Drivetrain extends Subsystem {
     backLeftDrive = new TalonSRX(RobotMap.backLeftDrivePort);
     backRightDrive = new VictorSPX(RobotMap.backRightDrivePort);
 
+    frontLeftDrive.set(ControlMode.Follower, backLeftDrive.getBaseID());
+    backRightDrive.set(ControlMode.Follower, frontRightDrive.getBaseID());
+
+
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);
   
     navX = new AHRS();
-
-    spinSpeed = 0.5;
+    
+    kP = 1;
+    gyroError = -navX.getRate();
   }
 
   @Override
@@ -62,13 +73,11 @@ public class Drivetrain extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new GamepadDriveTeleOp());
   }
+
   public void driveByPercent(double leftSpeed, double rightSpeed)
   {
-      frontLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
       frontRightDrive.set(ControlMode.PercentOutput, rightSpeed);
       backLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
-      backRightDrive.set(ControlMode.PercentOutput, rightSpeed);
-
   }
 
   private double getAngle()

@@ -13,9 +13,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//Autonmous commands:
-import frc.robot.commands.SpinMeAuto;
-
 //Subsystems:
 import frc.robot.IO;
 import frc.robot.subsystems.Drivetrain;
@@ -50,7 +47,7 @@ public class Robot extends TimedRobot {
     //m_visionSystem = new VisionSystem();
     m_io = new IO();
     m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new SpinMeAuto());
+    //m_chooser.setDefaultOption("Default Auto", new SpinMeAuto());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }

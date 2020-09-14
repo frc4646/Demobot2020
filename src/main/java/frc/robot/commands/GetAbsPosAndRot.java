@@ -7,11 +7,12 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Drivetrain;
 
-public class SpinMeAuto extends Command {
-  public SpinMeAuto() {
+public class GetAbsPosAndRot extends Command {
+  public GetAbsPosAndRot() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_drivetrain);
@@ -20,13 +21,11 @@ public class SpinMeAuto extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_drivetrain.driveByPercent(0.0, 0.0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_drivetrain.driveByPercent(-Robot.m_drivetrain.spinSpeed, Robot.m_drivetrain.spinSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,13 +37,11 @@ public class SpinMeAuto extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_drivetrain.driveByPercent(0.0, 0.0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
