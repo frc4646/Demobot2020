@@ -10,11 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StraightDrive extends Command {
-  public StraightDrive() {
+public class FaceAngle extends Command {
+  private double angle;
+
+  public FaceAngle(double ANGLE) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires (Robot.m_drivetrain);
+    angle = ANGLE;
+    requires(Robot.m_drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -25,8 +28,8 @@ public class StraightDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_drivetrain.driveByPercent(.5 + Robot.m_drivetrain.kP * Robot.m_drivetrain.gyroError, .5 - Robot.m_drivetrain.kP * Robot.m_drivetrain.gyroError);
-    Robot.m_drivetrain.driveByPercent(0.5f, 0.5f);
+    Robot.m_drivetrain.faceAngle(angle);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
