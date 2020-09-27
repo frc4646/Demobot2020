@@ -87,8 +87,8 @@ public class Drivetrain extends Subsystem{
 
   public void faceAngle(double Angle){
     double error = Angle - navX.getAngle();
-    frontRightDrive.set(ControlMode.PercentOutput, kP * error);
-    backLeftDrive.set(ControlMode.PercentOutput, kP * error);
+    frontRightDrive.set(ControlMode.PercentOutput,  kP * error);
+    backLeftDrive.set(ControlMode.PercentOutput, -1 * kP * error);
   }
 
 

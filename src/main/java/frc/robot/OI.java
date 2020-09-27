@@ -22,6 +22,7 @@ public class OI
     Robot.m_io.aButton.whenPressed(new FlagWave());
     Robot.m_io.bButton.whenPressed(new FlagStop());
     Robot.m_io.yButton.whileHeld(new StraightDrive());
+    Robot.m_io.xButton.whenPressed(new FaceAngle(90));
     if (Robot.m_io.getGamepadDpadAngle() != -1){
       switch (Robot.m_io.getGamepadDpadAngle()){
         case 0: new FaceAngle(0);
