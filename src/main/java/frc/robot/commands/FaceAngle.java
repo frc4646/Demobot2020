@@ -40,7 +40,7 @@ public class FaceAngle extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_drivetrain.resetNavX();
+    Robot.m_drivetrain.resetNavXPID();
     Robot.m_drivetrain.driveByPercent(0, 0);
 
   }

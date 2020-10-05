@@ -110,9 +110,8 @@ public class Drivetrain extends Subsystem{
     return navX_PID.atSetpoint();
   }
 
-  public void resetNavX()
+  public void resetNavXPID()
   {
-    navX.reset();
     navX_PID.reset();
   }
 
