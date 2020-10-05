@@ -31,7 +31,8 @@ public class StraightDrive extends Command {
     else driveDirection = -1;
 
     //Drives the robot straight
-    Robot.m_drivetrain.driveByPercent(.5 + Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error, .5 - Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error);
+    Robot.m_drivetrain.driveByPercent(.5 + Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error * driveDirection, 
+                                      .5 - Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error * driveDirection);
   }
 
   // Make this return true when this Command no longer needs to run execute()

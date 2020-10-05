@@ -101,7 +101,7 @@ public class Drivetrain extends Subsystem{
 
   public void faceAngle(double targetAngle){
     double calculatedPID = navX_PID.calculate(getAngle(), targetAngle);
-    frontRightDrive.set(ControlMode.PercentOutput, calculatedPID);
+    frontRightDrive.set(ControlMode.PercentOutput, -calculatedPID);
     backLeftDrive.set(ControlMode.PercentOutput, calculatedPID);
   }
 
