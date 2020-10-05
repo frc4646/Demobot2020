@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class StraightDrive extends Command {
+  int driveDirection;
   public StraightDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -25,8 +26,12 @@ public class StraightDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    //Determines whether to drive forward or backward
+    if (Robot.m_io.getGamepadLeftStickY() >= 0) driveDirection = 1;
+    else driveDirection = -1;
+
+    //Drives the robot straight
     Robot.m_drivetrain.driveByPercent(.5 + Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error, .5 - Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error);
-    Robot.m_drivetrain.driveByPercent(0.5f, 0.5f);
   }
 
   // Make this return true when this Command no longer needs to run execute()
