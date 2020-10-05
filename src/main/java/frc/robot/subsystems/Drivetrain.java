@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.GamepadDriveTeleOp;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.controller.PIDController;
 
 
 /**
@@ -31,11 +32,12 @@ public class Drivetrain extends Subsystem{
   final VictorSPX backRightDrive;
 
   final AHRS navX;
+  final PIDController navXPID;
   
-  // The gain for a simple P loop
-  public double kP;
-
-  public double gyroError;
+  public double navX_kP;
+  public double navX_kI;
+  public double navX_kD;
+  public double navX_tolerance;
 
   public Drivetrain()
   {
@@ -52,9 +54,13 @@ public class Drivetrain extends Subsystem{
     backRightDrive.setInverted(true);
   
     navX = new AHRS();
-    
-    kP = 1;
-    gyroError = -navX.getRate();
+    navX.reset();
+
+    navX_kP = 1; navX_kI = 0; navX_kD = 0;
+    navX_tolerance = 1;
+
+    navXPID = new PIDController(navX_kP, navX_kI, navX_kD);
+    navXPID.setTolerance(navX_tolerance);
   }
 
   @Override
@@ -85,12 +91,27 @@ public class Drivetrain extends Subsystem{
     return navX.getAngle();
   }
 
-  public void faceAngle(double angle){
-    double error = angle - navX.getAngle();
+  /*public void faceAngle(double targetAngle){
+    double error = targetAngle - navX.getAngle();
     frontRightDrive.set(ControlMode.PercentOutput,  kP * error);
     backLeftDrive.set(ControlMode.PercentOutput, -1 * kP * error);
+  }*/
+
+  public void faceAngle(double targetAngle){
+    double calculatedPID = navXPID.calculate(getAngle(), targetAngle);
+    frontRightDrive.set(ControlMode.PercentOutput, calculatedPID);
+    backLeftDrive.set(ControlMode.PercentOutput, calculatedPID);
   }
 
+  public boolean atTargetAngle()
+  {
+    navXPID.atSetpoint();
+  }
 
+  public void resetNavX()
+  {
+    navX.reset();
+    navXPID.reset();
+  }
 
 }

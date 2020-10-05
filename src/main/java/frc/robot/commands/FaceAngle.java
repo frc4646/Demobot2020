@@ -13,6 +13,7 @@ import frc.robot.Robot;
 public class FaceAngle extends Command {
   private double targetAngle;
   private double targetRange;
+}
 
   public FaceAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
@@ -32,9 +33,9 @@ public class FaceAngle extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // TODO: Properly set isFinished()
-    if (Math.abs(targetAngle - Robot.m_drivetrain.getAngle()) <= targetRange) {
-     return true;
+    if (Robot.m_drivetrain.atTargetAngle())
+    {
+      return true;
     }
     return false;
   }
@@ -42,7 +43,9 @@ public class FaceAngle extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.m_drivetrain.resetNavX();
     Robot.m_drivetrain.driveByPercent(0, 0);
+
   }
 
   // Called when another command which requires one or more of the same
