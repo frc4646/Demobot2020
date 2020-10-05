@@ -32,12 +32,13 @@ public class Drivetrain extends Subsystem{
   final VictorSPX backRightDrive;
 
   final AHRS navX;
-  final PIDController navXPID;
+  final PIDController navX_PID;
   
   public double navX_kP;
   public double navX_kI;
   public double navX_kD;
   public double navX_tolerance;
+  public double navX_error;
 
   public Drivetrain()
   {
@@ -58,9 +59,10 @@ public class Drivetrain extends Subsystem{
 
     navX_kP = 1; navX_kI = 0; navX_kD = 0;
     navX_tolerance = 1;
+    navX_error = -navX.getRate();
 
-    navXPID = new PIDController(navX_kP, navX_kI, navX_kD);
-    navXPID.setTolerance(navX_tolerance);
+    navX_PID = new PIDController(navX_kP, navX_kI, navX_kD);
+    navX_PID.setTolerance(navX_tolerance);
   }
 
   @Override
@@ -98,20 +100,20 @@ public class Drivetrain extends Subsystem{
   }*/
 
   public void faceAngle(double targetAngle){
-    double calculatedPID = navXPID.calculate(getAngle(), targetAngle);
+    double calculatedPID = navX_PID.calculate(getAngle(), targetAngle);
     frontRightDrive.set(ControlMode.PercentOutput, calculatedPID);
     backLeftDrive.set(ControlMode.PercentOutput, calculatedPID);
   }
 
   public boolean atTargetAngle()
   {
-    navXPID.atSetpoint();
+    return navX_PID.atSetpoint();
   }
 
   public void resetNavX()
   {
     navX.reset();
-    navXPID.reset();
+    navX_PID.reset();
   }
 
 }

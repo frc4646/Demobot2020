@@ -12,14 +12,11 @@ import frc.robot.Robot;
 
 public class FaceAngle extends Command {
   private double targetAngle;
-  private double targetRange;
-}
 
   public FaceAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     targetAngle = angle;
-    targetRange = 1f;
     requires(Robot.m_drivetrain);
   }
 

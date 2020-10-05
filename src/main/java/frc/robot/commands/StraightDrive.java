@@ -25,7 +25,7 @@ public class StraightDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_drivetrain.driveByPercent(.5 + Robot.m_drivetrain.kP * Robot.m_drivetrain.gyroError, .5 - Robot.m_drivetrain.kP * Robot.m_drivetrain.gyroError);
+    Robot.m_drivetrain.driveByPercent(.5 + Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error, .5 - Robot.m_drivetrain.navX_kP * Robot.m_drivetrain.navX_error);
     Robot.m_drivetrain.driveByPercent(0.5f, 0.5f);
   }
 
