@@ -11,24 +11,21 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class FaceAngle extends Command {
-  private double angle;
+  private double targetAngle;
+  private double targetRange;
 
-  public FaceAngle(double ANGLE) {
+  public FaceAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    angle = ANGLE;
+    targetAngle = angle;
+    targetRange = 1f;
     requires(Robot.m_drivetrain);
-  }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_drivetrain.faceAngle(angle);
+    Robot.m_drivetrain.faceAngle(targetAngle);
     
   }
 
@@ -36,6 +33,9 @@ public class FaceAngle extends Command {
   @Override
   protected boolean isFinished() {
     // TODO: Properly set isFinished()
+    if (Math.abs(targetAngle - Robot.m_drivetrain.getAngle()) <= targetRange) {
+     return true;
+    }
     return false;
   }
 
