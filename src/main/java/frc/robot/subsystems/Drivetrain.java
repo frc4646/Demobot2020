@@ -38,6 +38,7 @@ public class Drivetrain extends Subsystem{
   public double navX_kI;
   public double navX_kD;
   public double navX_tolerance;
+  public double navX_derivativeTolerance;
   public double navX_error;
 
   public Drivetrain()
@@ -57,12 +58,13 @@ public class Drivetrain extends Subsystem{
     navX = new AHRS();
     navX.reset();
 
-    navX_kP = 1; navX_kI = 0; navX_kD = 0;
+    navX_kP = .1; navX_kI = 0; navX_kD = 0;
     navX_tolerance = 1;
+    navX_derivativeTolerance = .01;
     navX_error = -navX.getRate();
 
     navX_PID = new PIDController(navX_kP, navX_kI, navX_kD);
-    navX_PID.setTolerance(navX_tolerance);
+    navX_PID.setTolerance(navX_tolerance, navX_derivativeTolerance);
   }
 
   @Override
