@@ -20,6 +20,11 @@ public class FaceAngle extends Command {
     requires(Robot.m_drivetrain);
   }
 
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+  }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
@@ -32,6 +37,8 @@ public class FaceAngle extends Command {
   protected boolean isFinished() {
     if (Robot.m_drivetrain.atTargetAngle())
     {
+      System.out.println("At Target Angle: Is Finished Returns True");
+
       return true;
     }
     return false;
