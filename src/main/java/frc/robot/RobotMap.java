@@ -35,4 +35,7 @@ public class RobotMap {
 
   public static final int pixyPanPort = 7;
   public static final int pixyTiltPort = 8;  
+
+  public static final int[] leftEncoderValues = {2, 3};
+  public static final int[] rightEncoderValues = {0, 1};
 }

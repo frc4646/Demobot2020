@@ -17,6 +17,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.GamepadDriveTeleOp;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.Encoder;
 
 
 /**
@@ -33,6 +34,10 @@ public class Drivetrain extends Subsystem{
 
   final AHRS navX;
   final PIDController navX_PID;
+
+  private final Encoder rightEncoder;
+  private final Encoder leftEncoder;
+  private final int encoderCountsPerInch;
   
   public double navX_kP;
   public double navX_kI;
@@ -50,10 +55,12 @@ public class Drivetrain extends Subsystem{
 
     frontLeftDrive.set(ControlMode.Follower, backLeftDrive.getBaseID());
     backRightDrive.set(ControlMode.Follower, frontRightDrive.getBaseID());
-
-
+    
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);
+
+    leftEncoder = new Encoder(RobotMap.leftEncoderValues[0], RobotMap.leftEncoderValues[1]);
+    rightEncoder = new Encoder(RobotMap.rightEncoderValues[0], RobotMap.rightEncoderValues[1]);
   
     navX = new AHRS();
     navX.reset();
@@ -65,14 +72,18 @@ public class Drivetrain extends Subsystem{
 
     navX_PID = new PIDController(navX_kP, navX_kI, navX_kD);
     navX_PID.setTolerance(navX_tolerance, navX_derivativeTolerance);
+
+    encoderCountsPerInch = 0;
   }
 
   @Override
   public void periodic() {
-    // TODO Auto-generated method stub
     super.periodic();
 
-    SmartDashboard.putNumber("navX_Angle", getAngle());
+    //SmartDashboard.putNumber("navX_Angle", getAngle());
+
+    SmartDashboard.putNumber("Left Encoder", leftEncoder.get());
+    SmartDashboard.putNumber("Right Encoder", rightEncoder.get());
   }
 
 
