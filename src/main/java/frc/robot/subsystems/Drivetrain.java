@@ -53,8 +53,10 @@ public class Drivetrain extends Subsystem{
     backLeftDrive = new TalonSRX(RobotMap.backLeftDrivePort);
     backRightDrive = new VictorSPX(RobotMap.backRightDrivePort);
 
-    frontLeftDrive.set(ControlMode.Follower, backLeftDrive.getBaseID());
-    backRightDrive.set(ControlMode.Follower, frontRightDrive.getBaseID());
+    //frontLeftDrive.set(ControlMode.Follower, backLeftDrive.getBaseID());
+    frontLeftDrive.follow(backLeftDrive);
+    //backRightDrive.set(ControlMode.Follower, frontRightDrive.getBaseID());
+    backRightDrive.follow(frontRightDrive);
     
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);

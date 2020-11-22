@@ -21,10 +21,12 @@ import frc.robot.commands.BellSpeedThroughTarget;
 public class Vision extends Subsystem {
   NetworkTable table;
 
+  NetworkTableEntry tv;
   NetworkTableEntry tx;
   NetworkTableEntry ty;
   NetworkTableEntry ta;
 
+  boolean isTrackingTarget;
   double xOffset;
   double yOffset;
   double area;
@@ -36,6 +38,7 @@ public class Vision extends Subsystem {
   public Vision()
   {
     table = NetworkTableInstance.getDefault().getTable("limelight");
+    tv = table.getEntry("tv");
     tx = table.getEntry("tx");
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
@@ -57,18 +60,25 @@ public class Vision extends Subsystem {
   public void periodic()
   {
     //read values periodically
+    isTrackingTarget = tv.getBoolean(false);
     xOffset = tx.getDouble(0.0);
     yOffset = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
     //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", xOffset);
-    SmartDashboard.putNumber("LimelightY", yOffset);
+    SmartDashboard.putBoolean("LimelightIsTrackingTarget", isTrackingTarget);
+    SmartDashboard.putNumber("LimelightXOffset", xOffset);
+    SmartDashboard.putNumber("LimelightYOffset", yOffset);
     SmartDashboard.putNumber("LimelightArea", area);
   }
 
   public double getDistanceToTarget()
   {
     return (targetHeight-mountingHeight)/Math.tan(mountingAngle + yOffset);
+  }
+
+  public boolean IsTrackingTarget()
+  {
+    return isTrackingTarget;
   }
 }

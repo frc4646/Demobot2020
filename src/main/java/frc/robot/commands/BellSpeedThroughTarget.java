@@ -31,9 +31,18 @@ public class BellSpeedThroughTarget extends Command {
   @Override
   protected void execute() {
     //The range of distances are 30 inches - 110 inches
-    double dist = Math.max(minDist, Math.min(Robot.m_vision.getDistanceToTarget(), maxDist)); //Cause apparently java doesn't have Math.Clamp()
-    double speed = ((dist-minDist)*(100/(maxDist-minDist)))/100;
-    Robot.m_flagWaver.setMotorSpeed(speed);
+    if (Robot.m_vision.IsTrackingTarget())
+    {
+      double dist = Math.max(minDist, Math.min(Robot.m_vision.getDistanceToTarget(), maxDist)); //Cause apparently java doesn't have Math.Clamp()
+      double speed = ((dist-minDist)*(100/(maxDist-minDist)))/100;
+      Robot.m_flagWaver.setMotorSpeed(speed);
+      System.out.println("Distance: " + dist);
+      System.out.println("Flag Speed: " + speed);
+    }
+    else
+    {
+      System.out.println("Cannot find target.");
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
