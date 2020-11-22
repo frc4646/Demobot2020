@@ -45,7 +45,7 @@ public class Vision extends Subsystem {
 
     mountingHeight = 12; //inches
     mountingAngle = 0;
-    targetHeight = 36;
+    targetHeight = 24;
   }
   
 
@@ -83,7 +83,7 @@ public class Vision extends Subsystem {
 
   public double getDistanceToTarget()
   {
-    return (targetHeight-mountingHeight)/Math.tan(mountingAngle + yOffset);
+    return (targetHeight-mountingHeight)/Math.tan(Math.toRadians(mountingAngle + yOffset));
   }
 
   public boolean IsTrackingTarget()
