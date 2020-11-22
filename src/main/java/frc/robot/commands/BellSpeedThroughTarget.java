@@ -33,7 +33,7 @@ public class BellSpeedThroughTarget extends Command {
     //The range of distances are 30 inches - 110 inches
     if (Robot.m_vision.IsTrackingTarget())
     {
-      double dist = Math.max(minDist, Math.min(Robot.m_vision.getDistanceToTarget(), maxDist)); //Cause apparently java doesn't have Math.Clamp()
+      double dist = Math.max(maxDist, Math.min(Robot.m_vision.getDistanceToTarget(), minDist)); //Cause apparently java doesn't have Math.Clamp()
       double speed = ((dist-minDist)*(100/(maxDist-minDist)))/100;
       Robot.m_flagWaver.setMotorSpeed(speed);
       System.out.println("Distance: " + dist);
