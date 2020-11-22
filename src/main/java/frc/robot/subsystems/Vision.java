@@ -60,7 +60,15 @@ public class Vision extends Subsystem {
   public void periodic()
   {
     //read values periodically
-    isTrackingTarget = tv.getBoolean(false);
+    Integer zero = 0;
+    if (tv.getNumber(0) == zero)
+    {
+      isTrackingTarget = false;
+    }
+    else
+    {
+      isTrackingTarget = true;
+    }
     xOffset = tx.getDouble(0.0);
     yOffset = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
