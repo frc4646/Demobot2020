@@ -19,7 +19,7 @@ public class FlagWaver extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   final Spark flagMotor;
-  public final double flagSpeed;
+  private final double flagSpeed;
 
   public FlagWaver()
   {
@@ -37,5 +37,10 @@ public class FlagWaver extends Subsystem {
   public void setMotorSpeed(double speed)
   {
       flagMotor.setSpeed(speed);
+  }
+
+  public double getIdealFlagSpeed()
+  {
+    return flagSpeed;
   }
 }

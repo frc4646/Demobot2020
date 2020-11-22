@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.commands.BellSpeedThroughTarget;
 
 /**
  * Add your docs here.
@@ -24,12 +25,12 @@ public class Vision extends Subsystem {
   NetworkTableEntry ty;
   NetworkTableEntry ta;
 
-  double x;
-  double y;
+  double xOffset;
+  double yOffset;
   double area;
 
-  double mountingAngle;
   double mountingHeight;
+  double mountingAngle;
   double targetHeight;
 
   public Vision()
@@ -38,6 +39,10 @@ public class Vision extends Subsystem {
     tx = table.getEntry("tx");
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
+
+    mountingHeight = 12; //inches
+    mountingAngle = 0;
+    targetHeight = 36;
   }
   
 
@@ -45,24 +50,25 @@ public class Vision extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new BellSpeedThroughTarget());
   }
 
   @Override
   public void periodic()
   {
     //read values periodically
-    x = tx.getDouble(0.0);
-    y = ty.getDouble(0.0);
+    xOffset = tx.getDouble(0.0);
+    yOffset = ty.getDouble(0.0);
     area = ta.getDouble(0.0);
 
     //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightX", xOffset);
+    SmartDashboard.putNumber("LimelightY", yOffset);
     SmartDashboard.putNumber("LimelightArea", area);
   }
 
   public double getDistanceToTarget()
   {
-    return (targetHeight-mountingHeight)/Math.tan(mountingAngle + targetHeight);
+    return (targetHeight-mountingHeight)/Math.tan(mountingAngle + yOffset);
   }
 }

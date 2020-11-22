@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.IO;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlagWaver;
+import frc.robot.subsystems.Vision;
 //import frc.robot.subsystems.VisionSystem;
 
 /**
@@ -29,6 +30,7 @@ import frc.robot.subsystems.FlagWaver;
 public class Robot extends TimedRobot {
   public static Drivetrain m_drivetrain;
   public static FlagWaver m_flagWaver;
+  public static Vision m_vision;
  // public static VisionSystem m_visionSystem;
   public static IO m_io;
   public static OI m_oi;
