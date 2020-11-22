@@ -49,6 +49,7 @@ public class Robot extends TimedRobot {
     //m_visionSystem = new VisionSystem();
     m_io = new IO();
     m_oi = new OI();
+    m_vision = new Vision();
     //m_chooser.setDefaultOption("Default Auto", new SpinMeAuto());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
