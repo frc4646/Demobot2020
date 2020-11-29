@@ -36,8 +36,8 @@ public class BellSpeedThroughTarget extends Command {
       double dist = Robot.m_vision.getDistanceToTarget();
       if (dist < minDist) dist = minDist;
       else if (dist > maxDist) dist = maxDist;
-      //Cause apparently java doesn't have Math.Clamp()
-      double speed = ((dist-minDist)*(100/(maxDist-minDist)))/100;
+      double speed = ((dist-minDist)*(100/(maxDist-minDist)))/100; //Cause apparently java doesn't have Math.Clamp()
+      speed = 1 - speed; //Close=fast bell Far=Slow Bell
       Robot.m_flagWaver.setMotorSpeed(speed);
       System.out.println("Distance: " + dist);
       System.out.println("Flag Speed: " + speed);
@@ -57,11 +57,13 @@ public class BellSpeedThroughTarget extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.m_flagWaver.setMotorSpeed(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
