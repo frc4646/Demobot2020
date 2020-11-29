@@ -10,6 +10,7 @@ import frc.robot.commands.FlagWave;
 import frc.robot.commands.FlagStop;
 import frc.robot.commands.StraightDrive;
 import frc.robot.commands.FaceAngle;
+import frc.robot.commands.BellSpeedThroughTarget;
 //import frc.robot.commands.TrackReflectiveTape;;
 
 public class OI 
@@ -35,6 +36,7 @@ public class OI
         break;
       }
     }
+    Robot.m_io.rightBumperButton.whileHeld(new BellSpeedThroughTarget());
     //Robot.m_io.xButton.whenPressed(new TrackReflectiveTape());
   }
 }
