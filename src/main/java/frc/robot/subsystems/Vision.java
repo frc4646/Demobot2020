@@ -26,11 +26,13 @@ public class Vision extends Subsystem {
   NetworkTableEntry ty;
   NetworkTableEntry ta;
 
+  //Got from Camera
   boolean isTrackingTarget;
   double xOffset;
   double yOffset;
   double area;
 
+  //Given
   double mountingHeight;
   double mountingAngle;
   double targetHeight;
@@ -87,5 +89,11 @@ public class Vision extends Subsystem {
   public boolean IsTrackingTarget()
   {
     return isTrackingTarget;
+  }
+
+  public double[] TargetPos()
+  {
+    double[] n = {xOffset, yOffset, area};
+    return n;
   }
 }
